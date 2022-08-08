@@ -4,6 +4,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.interactions.Actions;
@@ -25,10 +27,10 @@ public class FirstScriptTest {
     public static WebDriverWait wait;
     @BeforeSuite
     public static void settingEnvironment() {
-    	System.setProperty("webdriver.edge.driver", "C://edgedriver//msedgedriver.exe");
-    	EdgeOptions options = new EdgeOptions();
+    	System.setProperty("webdriver.chrome.driver", "C://chromedriver//chromedriver.exe");
+    	ChromeOptions options = new ChromeOptions();
         options.addArguments("load-extension="+path_to_addblock.getAbsolutePath());
-        driver = new EdgeDriver(options);
+        driver = new ChromeDriver(options);
     	wait = new WebDriverWait(driver, Duration.ofMillis(10000));
         driver.manage().window().maximize();
         wait.until(ExpectedConditions.numberOfWindowsToBe(2));
@@ -102,38 +104,6 @@ public class FirstScriptTest {
         
     }
     
-    @Test
-    public void validateFirstNameEmpty() {
-    	WebElement fiName = driver.findElement(By.id("firstName"));
-    	String value = fiName.getText();
-    	Reporter.log(value);
-    	fiName.clear();
-    	if(value.chars().allMatch(Character::isLetter) == false) 
-    		throw new RuntimeException("The values of"
-    			+ " the field firstName are not valid");
-    }
-    @Test
-    public void validateFirstNameSpecial() {
-    	WebElement fiName = driver.findElement(By.id("firstName"));
-    	fiName.sendKeys("Al123#");
-    	String value = fiName.getText();
-    	Reporter.log(value);
-    	fiName.clear();
-    	if(value.chars().allMatch(Character::isLetter) == false) 
-    		throw new RuntimeException("The values of"
-    			+ " the field firstName are not valid");
-    }
-    @Test
-    public void validateFirstName() {
-    	WebElement fiName = driver.findElement(By.id("firstName"));
-    	fiName.sendKeys("Alan");
-    	String value = fiName.getText();
-    	Reporter.log(value);
-    	fiName.clear();
-    	if(value.chars().allMatch(Character::isLetter) == false) 
-    		throw new RuntimeException("The values of"
-    			+ " the field firstName are not valid");
-    }
     @AfterSuite
     public static void finishJob() {
     	driver.quit();
