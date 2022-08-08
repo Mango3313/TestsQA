@@ -5,12 +5,11 @@
     <classes>
       <class name="seleniumtest.test.FirstScriptTest">
         <methods>
-          <include name="happyPath"/>
           <include name="finishJob"/>
-          <include name="validateFirstName"/>
-          <include name="validateFirstNameEmpty"/>
-          <include name="validateFirstNameSpecial"/>
+          <include name="EmptyFields"/>
+          <include name="EmptyMandatoryFields"/>
           <include name="settingEnvironment"/>
+          <include name="clean"/>
         </methods>
       </class> <!-- seleniumtest.test.FirstScriptTest -->
     </classes>

@@ -1,6 +1,8 @@
 package seleniumtest.test;
 
+import org.junit.jupiter.api.AfterEach;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -12,7 +14,9 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Reporter;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterSuite;
+import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Test;
 
@@ -70,6 +74,7 @@ public class FirstScriptTest {
         //dateOfBirth
         WebElement dateOfBirth = driver.findElement(By.id("dateOfBirthInput"));
         dateOfBirth.sendKeys("10 Sep 1997");
+        dateOfBirth.sendKeys(Keys.ENTER);
         //subjects
         WebElement subjectsInput = driver.findElement(By.id("subjectsInput"));
         subjectsInput.sendKeys("HelloWorld");
@@ -102,6 +107,103 @@ public class FirstScriptTest {
         wait.until(ExpectedConditions.elementToBeClickable(By.id("closeLargeModal")));
         actions.moveToElement(driver.findElement(By.id("closeLargeModal"))).click().perform();
         
+    }
+    @Test
+    public void EmptyFields() throws InterruptedException {
+        //Check if the title is correct
+        //Set actions to perform operations over radio and check buttons
+        Actions actions = new Actions(driver);
+        /*Indentify webelements on page*/
+        //name
+        WebElement inputFirstName = driver.findElement(By.id("firstName"));
+        inputFirstName.clear();
+        WebElement inputLastName = driver.findElement(By.id("lastName"));
+        inputLastName.clear();
+        //email
+        WebElement inputEmail = driver.findElement(By.id("userEmail"));
+        inputEmail.clear();
+
+        //mobile
+        WebElement mobileNumber = driver.findElement(By.id("userNumber"));
+        mobileNumber.clear();
+        //dateOfBirth
+        WebElement dateOfBirth = driver.findElement(By.id("dateOfBirthInput"));
+        dateOfBirth.clear();
+        dateOfBirth.sendKeys(Keys.ENTER);
+        //subjects
+        WebElement subjectsInput = driver.findElement(By.id("subjectsInput"));
+        subjectsInput.clear();
+
+        //currentaddress
+        WebElement addressInput = driver.findElement(By.id("currentAddress"));
+        addressInput.clear();
+
+        //submit
+        WebElement searchButton = driver.findElement(By.id("submit"));
+        searchButton.sendKeys(Keys.ENTER);
+
+        wait.until(ExpectedConditions.elementToBeClickable(By.id("closeLargeModal")));
+        actions.moveToElement(driver.findElement(By.id("closeLargeModal"))).click().perform();
+
+    }
+    
+    @Test
+    public void EmptyMandatoryFields() throws InterruptedException {
+        //Check if the title is correct
+        //Set actions to perform operations over radio and check buttons
+        Actions actions = new Actions(driver);
+        /*Indentify webelements on page*/
+        //name
+        WebElement inputFirstName = driver.findElement(By.id("firstName"));
+        inputFirstName.sendKeys("");
+        WebElement inputLastName = driver.findElement(By.id("lastName"));
+        inputLastName.sendKeys("");
+        //email
+        WebElement inputEmail = driver.findElement(By.id("userEmail"));
+        inputEmail.sendKeys("lidia@gmail.com");
+
+        //mobile
+        WebElement mobileNumber = driver.findElement(By.id("userNumber"));
+        mobileNumber.sendKeys("");
+        //dateOfBirth
+        WebElement dateOfBirth = driver.findElement(By.id("dateOfBirthInput"));
+        dateOfBirth.sendKeys("10 Sep 1997");
+        dateOfBirth.sendKeys(Keys.ENTER);
+        //subjects
+        WebElement subjectsInput = driver.findElement(By.id("subjectsInput"));
+        subjectsInput.sendKeys("HelloWorld");
+        //hobbies
+        WebElement hobbiesInput1,hobbiesInput2,hobbiesInput3;
+        hobbiesInput1= driver.findElement(By.id("hobbies-checkbox-1"));
+        actions.moveToElement(hobbiesInput1).click().perform();
+        hobbiesInput2 = driver.findElement(By.id("hobbies-checkbox-2"));
+        actions.moveToElement(hobbiesInput2).click().perform();
+        hobbiesInput3 = driver.findElement(By.id("hobbies-checkbox-3"));
+        actions.moveToElement(hobbiesInput3).click().perform();
+        //picture
+        WebElement pictureInput = driver.findElement(By.id("uploadPicture"));
+        File file = new File("/Users/daft_/Pictures/images.jpg");
+        pictureInput.sendKeys(file.getAbsolutePath());
+        //currentaddress
+        WebElement addressInput = driver.findElement(By.id("currentAddress"));
+        addressInput.sendKeys("Asndanskjdnajsndjansdkjnakjsdnkansdjs");
+        //stateandcity
+        WebElement stateInput = driver.findElement(By.id("react-select-3-input"));
+        stateInput.sendKeys("NCR");
+        stateInput.sendKeys(Keys.ENTER);
+        WebElement cityInput = wait.until(ExpectedConditions.elementToBeClickable(By.id("react-select-4-input")));
+        cityInput.sendKeys("Delhi");
+        cityInput.sendKeys(Keys.ENTER);
+        //submit
+        WebElement searchButton = driver.findElement(By.id("submit"));
+        searchButton.sendKeys(Keys.ENTER);
+
+        wait.until(ExpectedConditions.elementToBeClickable(By.id("closeLargeModal")));
+        actions.moveToElement(driver.findElement(By.id("closeLargeModal"))).click().perform();
+    }
+    @AfterMethod
+    public void clean() {
+    	driver.navigate().refresh();
     }
     
     @AfterSuite

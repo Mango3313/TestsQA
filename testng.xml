@@ -3,7 +3,7 @@
 <suite name="Testing de QA">
   <test thread-count="5" name="HappyPath">
     <classes>
-      <class name="seleniumtest.test.FirstScriptTest"/>
+      <class name="seleniumtest.test.git"/>
     </classes>
   </test> <!-- Test -->
 </suite> <!-- Suite -->
