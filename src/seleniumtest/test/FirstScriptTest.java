@@ -1,32 +1,48 @@
 package seleniumtest.test;
 
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Reporter;
+import org.testng.annotations.AfterSuite;
+import org.testng.annotations.BeforeSuite;
+import org.testng.annotations.Test;
 
+import java.io.File;
 import java.time.Duration;
+import java.util.ArrayList;
+import java.util.List;
 
 public class FirstScriptTest {
-    public WebDriver driver;
-
-    @BeforeEach
-    public void preparation(){
-        System.setProperty("webdriver.edge.driver", "C://edgedriver//msedgedriver.exe");
-        driver = new EdgeDriver();
+    public static WebDriver driver;
+    private static File path_to_addblock = new File("/Users/daft_/Documents/5.0.4_0");
+    public static WebDriverWait wait;
+    @BeforeSuite
+    public static void settingEnvironment() {
+    	System.setProperty("webdriver.edge.driver", "C://edgedriver//msedgedriver.exe");
+    	EdgeOptions options = new EdgeOptions();
+        options.addArguments("load-extension="+path_to_addblock.getAbsolutePath());
+        driver = new EdgeDriver(options);
+    	wait = new WebDriverWait(driver, Duration.ofMillis(10000));
+        driver.manage().window().maximize();
+        wait.until(ExpectedConditions.numberOfWindowsToBe(2));
+        int nTabs = driver.getWindowHandles().size();
+        List<String> winHandles = new ArrayList<String>(nTabs);
+        for(String s:driver.getWindowHandles()) winHandles.add(s);
+        driver.switchTo().window(winHandles.get(0));
         driver.get("https://demoqa.com/automation-practice-form");
-        String title = driver.getTitle();
-        Assertions.assertEquals("ToolsQA", title);
-        driver.manage().timeouts().implicitlyWait(Duration.ofMillis(500));
+        wait.until(ExpectedConditions.titleIs("ToolsQA"));
     }
 
     @Test
-    public void eightComponents() throws InterruptedException {
+    public void happyPath() throws InterruptedException {
+    	//Check if the title is correct
         //Set actions to perform operations over radio and check buttons
         Actions actions = new Actions(driver);
         /*Indentify webelements on page*/
@@ -65,18 +81,61 @@ public class FirstScriptTest {
         actions.moveToElement(hobbiesInput3).click().perform();
         //picture
         WebElement pictureInput = driver.findElement(By.id("uploadPicture"));
+        File file = new File("/Users/daft_/Pictures/images.jpg");
+        pictureInput.sendKeys(file.getAbsolutePath());
         //currentaddress
         WebElement addressInput = driver.findElement(By.id("currentAddress"));
         addressInput.sendKeys("Asndanskjdnajsndjansdkjnakjsdnkansdjs");
         //stateandcity
         WebElement stateInput = driver.findElement(By.id("react-select-3-input"));
-        WebElement cityInput = driver.findElement(By.id("react-select-4-input"));
+        stateInput.sendKeys("NCR");
+        stateInput.sendKeys(Keys.ENTER);
+        WebElement cityInput = wait.until(ExpectedConditions.elementToBeClickable(By.id("react-select-4-input")));
+        cityInput.sendKeys("Delhi");
+        cityInput.sendKeys(Keys.ENTER);
         //submit
         WebElement searchButton = driver.findElement(By.id("submit"));
-        actions.moveToElement(searchButton).click().perform();
-
-        Thread.sleep(5000);
+        searchButton.sendKeys(Keys.ENTER);
         
-        driver.quit();
+        wait.until(ExpectedConditions.elementToBeClickable(By.id("closeLargeModal")));
+        actions.moveToElement(driver.findElement(By.id("closeLargeModal"))).click().perform();
+        
+    }
+    
+    @Test
+    public void validateFirstNameEmpty() {
+    	WebElement fiName = driver.findElement(By.id("firstName"));
+    	String value = fiName.getText();
+    	Reporter.log(value);
+    	fiName.clear();
+    	if(value.chars().allMatch(Character::isLetter) == false) 
+    		throw new RuntimeException("The values of"
+    			+ " the field firstName are not valid");
+    }
+    @Test
+    public void validateFirstNameSpecial() {
+    	WebElement fiName = driver.findElement(By.id("firstName"));
+    	fiName.sendKeys("Al123#");
+    	String value = fiName.getText();
+    	Reporter.log(value);
+    	fiName.clear();
+    	if(value.chars().allMatch(Character::isLetter) == false) 
+    		throw new RuntimeException("The values of"
+    			+ " the field firstName are not valid");
+    }
+    @Test
+    public void validateFirstName() {
+    	WebElement fiName = driver.findElement(By.id("firstName"));
+    	fiName.sendKeys("Alan");
+    	String value = fiName.getText();
+    	Reporter.log(value);
+    	fiName.clear();
+    	if(value.chars().allMatch(Character::isLetter) == false) 
+    		throw new RuntimeException("The values of"
+    			+ " the field firstName are not valid");
+    }
+    @AfterSuite
+    public static void finishJob() {
+    	driver.quit();
     }
 }

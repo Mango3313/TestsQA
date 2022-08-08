@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testng-results ignored="0" total="4" passed="4" failed="0" skipped="0">
+  <reporter-output>
+    <line>
+      <![CDATA[]]>
+    </line>
+    <line>
+      <![CDATA[]]>
+    </line>
+    <line>
+      <![CDATA[]]>
+    </line>
+  </reporter-output>
+  <suite started-at="2022-08-08T10:40:48 CDT" name="Default suite" finished-at="2022-08-08T10:40:51 CDT" duration-ms="3031">
+    <groups>
+    </groups>
+    <test started-at="2022-08-08T10:40:48 CDT" name="Default test" finished-at="2022-08-08T10:40:51 CDT" duration-ms="3031">
+      <class name="seleniumtest.test.FirstScriptTest">
+        <test-method is-config="true" signature="settingEnvironment()[pri:0, instance:seleniumtest.test.FirstScriptTest@9f116cc]" started-at="2022-08-08T10:40:28 CDT" name="settingEnvironment" finished-at="2022-08-08T10:40:48 CDT" duration-ms="19764" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- settingEnvironment -->
+        <test-method signature="happyPath()[pri:0, instance:seleniumtest.test.FirstScriptTest@9f116cc]" started-at="2022-08-08T10:40:48 CDT" name="happyPath" finished-at="2022-08-08T10:40:50 CDT" duration-ms="2791" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- happyPath -->
+        <test-method signature="validateFirstName()[pri:0, instance:seleniumtest.test.FirstScriptTest@9f116cc]" started-at="2022-08-08T10:40:50 CDT" name="validateFirstName" finished-at="2022-08-08T10:40:51 CDT" duration-ms="107" status="PASS">
+          <reporter-output>
+            <line>
+              <![CDATA[]]>
+            </line>
+          </reporter-output>
+        </test-method> <!-- validateFirstName -->
+        <test-method signature="validateFirstNameEmpty()[pri:0, instance:seleniumtest.test.FirstScriptTest@9f116cc]" started-at="2022-08-08T10:40:51 CDT" name="validateFirstNameEmpty" finished-at="2022-08-08T10:40:51 CDT" duration-ms="32" status="PASS">
+          <reporter-output>
+            <line>
+              <![CDATA[]]>
+            </line>
+          </reporter-output>
+        </test-method> <!-- validateFirstNameEmpty -->
+        <test-method signature="validateFirstNameSpecial()[pri:0, instance:seleniumtest.test.FirstScriptTest@9f116cc]" started-at="2022-08-08T10:40:51 CDT" name="validateFirstNameSpecial" finished-at="2022-08-08T10:40:51 CDT" duration-ms="68" status="PASS">
+          <reporter-output>
+            <line>
+              <![CDATA[]]>
+            </line>
+          </reporter-output>
+        </test-method> <!-- validateFirstNameSpecial -->
+        <test-method is-config="true" signature="finishJob()[pri:0, instance:seleniumtest.test.FirstScriptTest@9f116cc]" started-at="2022-08-08T10:40:51 CDT" name="finishJob" finished-at="2022-08-08T10:40:51 CDT" duration-ms="325" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- finishJob -->
+      </class> <!-- seleniumtest.test.FirstScriptTest -->
+    </test> <!-- Default test -->
+  </suite> <!-- Default suite -->
+</testng-results>
